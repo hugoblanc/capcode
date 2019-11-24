@@ -40,7 +40,7 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 
 	private async getServerChildren(server: CapNode) {
 		const apps: CapNode[] = [];
-		let password = this.context.globalState.get('lastTagged', '');
+		let password = this.context.globalState.get(server.label, '');
 		if (password === '') {
 			const value = await vscode.window.showInputBox();
 			if(value === undefined){
@@ -48,7 +48,7 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 				return [];
 			}
 		}
-		
+		password = 'okorkk';
 		const appDefs = await this.capcliService.getApps(server.label, password) as AppDefinitionData;
 		
 		for (let a of appDefs.appDefinitions) {
