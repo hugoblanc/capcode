@@ -20,6 +20,11 @@
 			{
 				"command": "extension.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "extension.setpass",
+				"title": "SetPassword",
+				"icon": "resources/logo.svg"
 			}
 		],
 		"viewsContainers": {
@@ -31,15 +36,25 @@
 				}
 			]
 		},
+		"menus": {
+			"view/item/context": [
+				{
+					"command": "extension.setpass",
+					"group": "inline",
+					"when": "view == server && viewItem == server"
+				},
+				{
+					"command": "extension.setpass",
+					"group": "inline",
+					"when": "view == server && viewItem == app"
+				}
+			]
+		},
 		"views": {
 			"capcode": [
 				{
 					"id": "server",
 					"name": "Serveur"
-				},
-				{
-					"id": "apps",
-					"name": "Applications"
 				}
 			]
 		}

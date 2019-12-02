@@ -31,7 +31,7 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 			const srvDescription = s.split(' at ');
 			servers.push(new CapNode(
 				'server',
-				srvDescription[0],
+				srvDescription[0].trim(),
 				TreeItemCollapsibleState.Collapsed)
 			);
 		}
@@ -43,12 +43,12 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 		let password = this.context.globalState.get(server.label, '');
 		if (password === '') {
 			const value = await vscode.window.showInputBox();
-			if(value === undefined){
+			if(value === undefined || value === ''){
 				vscode.window.showErrorMessage('Your password is necessary to access captain\'s informations');
-				return [];
+				throw new Error('pb');
 			}
+			password = value;
 		}
-		password = 'okorkk';
 		const appDefs = await this.capcliService.getApps(server.label, password) as AppDefinitionData;
 		
 		for (let a of appDefs.appDefinitions) {

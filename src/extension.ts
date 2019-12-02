@@ -13,13 +13,12 @@ export function activate(context: vscode.ExtensionContext) {
 	const capNodeProvider = new CapNodeProvider(context);
 	vscode.window.createTreeView('server', { treeDataProvider: capNodeProvider });
 
-	
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', async () => {
+	let disposable = vscode.commands.registerCommand('extension.setpass', async (context) => {
 
-
-	});	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
+		console.log(context);
+		
+		// const value = await vscode.window.showInputBox();
+	});	
 
 	context.subscriptions.push(disposable);
 }
