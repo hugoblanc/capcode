@@ -24,7 +24,12 @@
 			{
 				"command": "extension.setpass",
 				"title": "SetPassword",
-				"icon": "resources/logo.svg"
+				"icon": "resources/lock.jpg"
+			},
+			{
+				"command": "extension.showDetails",
+				"title": "SetPassword",
+				"icon": "resources/lock.jpg"
 			}
 		],
 		"viewsContainers": {
@@ -44,7 +49,7 @@
 					"when": "view == server && viewItem == server"
 				},
 				{
-					"command": "extension.setpass",
+					"command": "extension.showDetails",
 					"group": "inline",
 					"when": "view == server && viewItem == app"
 				}

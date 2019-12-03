@@ -32,7 +32,9 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 			servers.push(new CapNode(
 				'server',
 				srvDescription[0].trim(),
-				TreeItemCollapsibleState.Collapsed)
+				TreeItemCollapsibleState.Collapsed, 
+				srvDescription[1].trim()
+				)
 			);
 		}
 		return servers;
@@ -52,7 +54,7 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 		const appDefs = await this.capcliService.getApps(server.label, password) as AppDefinitionData;
 		
 		for (let a of appDefs.appDefinitions) {
-			apps.push(new CapNode('app', a.appName, TreeItemCollapsibleState.None, a.nodeId));
+			apps.push(new CapNode('app', a.appName, TreeItemCollapsibleState.None, a));
 		}
 		this.context.globalState.update(server.label, password);
 		return apps;
