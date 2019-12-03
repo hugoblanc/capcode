@@ -12,7 +12,8 @@ export class TemplateHelper {
     private constructor() { }
 
 
-    private static BODY_CONTENT = 'BODY_CONTENT';
+    private static DETAILS = 'BODY_DETAILS';
+    private static TITLE = 'BODY_TITLE';
 
     private static SKELETON = `<!DOCTYPE html>
                                 <html lang="en">
@@ -22,9 +23,16 @@ export class TemplateHelper {
                                         <title>Cat Coding</title>
                                     </head>
                                     <body>
-                                    <div style="margin:5% 20%; padding:2%;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" >
 
-                                        ${TemplateHelper.BODY_CONTENT}
+                                    <div>
+                                        <h1 style="margin:2% 20% 2% 20%;" >
+                                        ${TemplateHelper.TITLE}
+                                        </h1>
+                                    </div>
+
+                                    <div style="margin:0% 20% 5% 20%; padding:2%;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" >
+
+                                        ${TemplateHelper.DETAILS}
                                         </div>
                                     </body>
                                 </html>`;
@@ -47,6 +55,10 @@ export class TemplateHelper {
             'The application has data persitence activated ',
             `The application doesn't has data persitance activated`);
 
+        if (app.volumes && app.volumes.length > 0) {
+            body += this.generateTable(app.volumes);
+        }
+
         body += this.boolSection(
             'Application exposed',
             app.notExposeAsWebApp,
@@ -59,8 +71,10 @@ export class TemplateHelper {
         }
 
 
-        return this.injectBodyContent(body);
+        const document = this.injectString(TemplateHelper.DETAILS, TemplateHelper.SKELETON, body);
+        const finalDocument = this.injectString(TemplateHelper.TITLE, document, app.appName);
 
+        return finalDocument;
 
     }
 
@@ -110,8 +124,8 @@ export class TemplateHelper {
         }
 
         let result = `
-        <table style="width:50%">
-        <tr>
+        <table style="width:50%; margin 2% 0%;">
+        <tr style="text-align: left;" >
         `;
         for (let key in elements[0]) {
             if (elements[0].hasOwnProperty(key)) {
@@ -140,9 +154,14 @@ export class TemplateHelper {
     }
 
 
-
-    private injectBodyContent(content: string) {
-        return TemplateHelper.SKELETON.replace(TemplateHelper.BODY_CONTENT, content);
+    /**
+     * This methode inject a content into a target to the specific position of the key 
+     * @param KEY Target to replace
+     * @param container current string which contains the target
+     * @param content content to inject
+     */
+    private injectString(KEY: string, container: string, content: string) {
+        return container.replace(KEY, content);
     }
 
 
