@@ -15,21 +15,9 @@ export async function activate(context: vscode.ExtensionContext) {
 	const contextHelper = ContextHelper.getInstance(context);
 
 
-	// const storaga  = StorageHelper.get(context);
-	// const list = new List({} as CommanderStatic);
-	// const machines = list.result();
-	// const setup = new ServerSetup({} as CommanderStatic);
-	// // setup.build();
-	// setup.action({} as IParams);
-		// if(machines.length === 0){
-	//}
 
-
-	// const log = await login();
+	const log = await login();
 	const result = await initMachine();
-
-	console.log(result);
-	
 
 
 

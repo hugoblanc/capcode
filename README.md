@@ -1,9 +1,12 @@
 # capcode README
 
-This is the README for your extension "capcode". After writing up a brief description, we recommend including the following sections.
+Capcode is a helper build to bring caprover cli inside vscode
 
 ## Features
 
+Capcode is the integration of caprover cli inside vscode 
+
+<!-- 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
 For example if there is an image subfolder under your extension project workspace:
@@ -29,37 +32,22 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Calling out known issues can help limit users opening duplicate issues against your extension. -->
 
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 0.0.1
 
-Initial release of ...
+Initial revision
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+- Log to machine
+- Save machine credentials
+- List machine's apps
+- See app's env
 
 -----------------------------------------------------------------------------------------------------------
 
-## Working with Markdown
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Thanks to [Gregor Cresnar](https://www.flaticon.com/authors/gregor-cresnar) from [Flaticon](https://www.flaticon.com/) for the icons of that extension
