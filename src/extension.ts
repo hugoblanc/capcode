@@ -1,16 +1,39 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { CapNodeProvider } from './models/capNodeProvider';
-import { TemplateHelper } from './services/template.helper';
 import { CapNode } from './models/capNode';
+import { CapNodeProvider } from './models/capNodeProvider';
+import { login } from './procedure/login.procedure';
+import { ContextHelper } from './services/context.helper';
+import { TemplateHelper } from './services/template.helper';
+import { initMachine } from './procedure/initmachine.procedure';
 
 
 
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
+	const contextHelper = ContextHelper.getInstance(context);
 
-	console.log('Congratulations, your extension "capcode" is now active!');
+
+	// const storaga  = StorageHelper.get(context);
+	// const list = new List({} as CommanderStatic);
+	// const machines = list.result();
+	// const setup = new ServerSetup({} as CommanderStatic);
+	// // setup.build();
+	// setup.action({} as IParams);
+		// if(machines.length === 0){
+	//}
+
+
+	// const log = await login();
+	const result = await initMachine();
+
+	console.log(result);
+	
+
+
+
+
 
 	const capNodeProvider = new CapNodeProvider(context);
 	vscode.window.createTreeView('server', { treeDataProvider: capNodeProvider });
