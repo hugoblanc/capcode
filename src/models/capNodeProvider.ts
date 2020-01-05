@@ -1,11 +1,9 @@
-import { AxiosResponse } from 'axios';
-import { TreeDataProvider, TreeItem, ExtensionContext, TreeItemCollapsibleState } from "vscode";
-import { CapNode } from "./capNode";
-import { CaproverCliService } from '../services/caprovercli.service';
 import * as vscode from 'vscode';
-import { ContextHelper } from '../services/context.helper';
-import { Machine } from './machine';
+import { TreeDataProvider, TreeItemCollapsibleState } from "vscode";
 import { initMachine } from '../procedure/initmachine.procedure';
+import { ContextHelper } from '../services/context.helper';
+import { CapNode } from "./capNode";
+import { Machine } from './machine';
 
 export class CapNodeProvider implements TreeDataProvider<any> {
 

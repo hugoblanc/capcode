@@ -16,7 +16,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
 
-	const log = await login();
+	// const log = await login();
 	const result = await initMachine();
 
 
