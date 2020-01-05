@@ -1,5 +1,6 @@
 import { TreeItem, TreeItemCollapsibleState, Command } from "vscode";
 import * as path from 'path';
+import { Machine } from './machine';
 
 export class CapNode extends TreeItem {
 
@@ -8,13 +9,13 @@ export class CapNode extends TreeItem {
     label: string;
     iconPath: string;
     contextValue: string;
-    metaData: AppDefinition | string;
+    metaData: AppDefinition | Machine;
 
     constructor(
         type: string,
         label: string,
         collapsibleState: TreeItemCollapsibleState,
-        metaData:  AppDefinition | string
+        metaData:  AppDefinition | Machine
     ) {
         super(label, collapsibleState);
         this.label = label;

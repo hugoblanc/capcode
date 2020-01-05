@@ -3,6 +3,11 @@
 	"displayName": "CapCode",
 	"description": "Capcode integrate caprover tools inside vscode",
 	"version": "0.0.1",
+	"publisher": "MrWhite",
+	"repository": {
+		"url": "https://github.com/owner/project/issues",
+		"type": "git"
+	},
 	"engines": {
 		"vscode": "^1.40.0"
 	},
@@ -24,12 +29,12 @@
 			{
 				"command": "extension.setpass",
 				"title": "SetPassword",
-				"icon": "resources/lock.jpg"
+				"icon": "resources/glasses.svg"
 			},
 			{
 				"command": "extension.showDetails",
 				"title": "SetPassword",
-				"icon": "resources/lock.jpg"
+				"icon": "resources/glasses.svg"
 			}
 		],
 		"viewsContainers": {
@@ -77,11 +82,30 @@
 		"@types/mocha": "^5.2.7",
 		"@types/node": "^12.11.7",
 		"@types/vscode": "^1.40.0",
+		"@types/configstore": "^4.0.0",
+		"@types/fs-extra": "^8.0.0",
+		"@types/inquirer": "6.5.0",
+		"@types/js-yaml": "^3.12.1",
+		"@types/request-promise": "^4.1.44",
+		"@types/update-notifier": "^2.5.0",
 		"glob": "^7.1.5",
 		"mocha": "^6.2.2",
 		"tslint": "^5.20.0",
 		"typescript": "^3.6.4",
 		"vscode-test": "^1.2.2"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"chalk": "^2.4.2",
+		"command-exists": "^1.2.8",
+		"commander": "^2.20.0",
+		"configstore": "^5.0.0",
+		"fs-extra": "^8.1.0",
+		"inquirer": "^6.5.0",
+		"js-yaml": "^3.13.1",
+		"ora": "^3.4.0",
+		"progress": "^2.0.3",
+		"request": "^2.88.0",
+		"request-promise": "^4.2.4",
+		"update-notifier": "^3.0.1"
+	}
 }
