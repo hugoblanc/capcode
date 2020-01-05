@@ -3,20 +3,28 @@ import { TreeDataProvider, TreeItem, ExtensionContext, TreeItemCollapsibleState 
 import { CapNode } from "./capNode";
 import { CaproverCliService } from '../services/caprovercli.service';
 import * as vscode from 'vscode';
+import { ContextHelper } from '../services/context.helper';
+import { Machine } from './machine';
+import { initMachine } from '../procedure/initmachine.procedure';
 
 export class CapNodeProvider implements TreeDataProvider<any> {
 
-	capcliService: CaproverCliService;
-	context: vscode.ExtensionContext;
+	// capcliService: CaproverCliService;
+	// context: vscode.ExtensionContext;
+	contextHelper: ContextHelper;
+
 	constructor(context: vscode.ExtensionContext) {
-		this.capcliService = CaproverCliService.getInstance();
-		this.context = context;
+
+		this.contextHelper = ContextHelper.getInstance();
+
+		// this.capcliService = CaproverCliService.getInstance();
+		// this.context = context;
 	}
 
 	public async getChildren(task?: CapNode): Promise<CapNode[]> {
 		let childrens: CapNode[] = [];
 		if (task === undefined) {
-			childrens = await this.getServer();
+			childrens = await this.getMachine();
 		} else {
 			childrens = await this.getServerChildren(task);
 		}
@@ -24,39 +32,35 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 	}
 
 
-	private async getServer() {
-		const servers: CapNode[] = [];
-		const result = await this.capcliService.ls();
-		for (let s of result) {
-			const srvDescription = s.split(' at ');
-			servers.push(new CapNode(
-				'server',
-				srvDescription[0].trim(),
-				TreeItemCollapsibleState.Collapsed, 
-				srvDescription[1].trim()
-				)
-			);
+	private async getMachine() {
+
+		const machines = this.contextHelper.getObjectsFromArrayKey(ContextHelper.MACHINE_KEY_ARRAY) as Machine[];
+
+		const mNodes: CapNode[] = [];
+		for (let m of machines) {
+			mNodes.push(new CapNode('server', m.name, TreeItemCollapsibleState.Collapsed, m));
 		}
-		return servers;
+
+		return mNodes;
 	}
 
-	private async getServerChildren(server: CapNode) {
-		const apps: CapNode[] = [];
-		let password = this.context.globalState.get(server.label, '');
-		if (password === '') {
-			const value = await vscode.window.showInputBox();
-			if(value === undefined || value === ''){
-				vscode.window.showErrorMessage('Your password is necessary to access captain\'s informations');
-				throw new Error('pb');
-			}
-			password = value;
+	private async getServerChildren(mNode: CapNode) {
+
+
+		const appsDefData = await initMachine(mNode.metaData as Machine);
+
+		if(!appsDefData){
+			throw new Error("Unable to get machine's app definitions");
 		}
-		const appDefs = await this.capcliService.getApps(server.label, password) as AppDefinitionData;
-		
-		for (let a of appDefs.appDefinitions) {
+
+		const apps: CapNode[] = [];
+	
+
+		for (let a of appsDefData.appDefinitions) {
 			apps.push(new CapNode('app', a.appName, TreeItemCollapsibleState.None, a));
 		}
-		this.context.globalState.update(server.label, password);
+
+
 		return apps;
 	}
 
