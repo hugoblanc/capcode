@@ -11,12 +11,9 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 	// context: vscode.ExtensionContext;
 	contextHelper: ContextHelper;
 
-	constructor(context: vscode.ExtensionContext) {
+	constructor() {
 
 		this.contextHelper = ContextHelper.getInstance();
-
-		// this.capcliService = CaproverCliService.getInstance();
-		// this.context = context;
 	}
 
 	public async getChildren(task?: CapNode): Promise<CapNode[]> {
