@@ -15,22 +15,17 @@ export async function activate(context: vscode.ExtensionContext) {
 	const contextHelper = ContextHelper.getInstance(context);
 
 
-
-	// const log = await login();
-	const result = await initMachine();
-
-
-
-
-
-	const capNodeProvider = new CapNodeProvider(context);
-	vscode.window.createTreeView('server', { treeDataProvider: capNodeProvider });
+	await initView();
 
 	let disposable = vscode.commands.registerCommand('extension.setpass', async (context) => {
-
 		console.log(context);
+	});
 
-		// const value = await vscode.window.showInputBox();
+
+
+	vscode.commands.registerCommand('extension.login', async (context) => {
+		await login();
+		await initView();
 	});
 
 
@@ -53,8 +48,20 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
 
+
+
+
 	context.subscriptions.push(disposable);
 }
+
+
+
+async function initView() {
+	await initMachine();
+	const capNodeProvider = new CapNodeProvider();
+	vscode.window.createTreeView('server', { treeDataProvider: capNodeProvider });
+}
+
 
 
 

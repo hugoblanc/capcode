@@ -32,9 +32,19 @@
 				"icon": "resources/glasses.svg"
 			},
 			{
+				"command": "extension.login",
+				"title": "Add machine",
+				"icon": "resources/house.svg"
+			},
+			{
+				"command": "extension.logout",
+				"title": "Logout",
+				"icon": "resources/logout.svg"
+			},
+			{
 				"command": "extension.showDetails",
 				"title": "SetPassword",
-				"icon": "resources/glasses.svg"
+				"icon": "resources/monitor.svg"
 			}
 		],
 		"viewsContainers": {
@@ -49,7 +59,7 @@
 		"menus": {
 			"view/item/context": [
 				{
-					"command": "extension.setpass",
+					"command": "extension.logout",
 					"group": "inline",
 					"when": "view == server && viewItem == server"
 				},
@@ -57,6 +67,12 @@
 					"command": "extension.showDetails",
 					"group": "inline",
 					"when": "view == server && viewItem == app"
+				}
+			], 
+			"view/title": [
+				{
+					"command": "extension.login",
+					"group": "navigation"
 				}
 			]
 		},
