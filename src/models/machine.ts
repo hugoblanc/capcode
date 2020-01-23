@@ -5,8 +5,4 @@ export class Machine {
         this.name = name.trim();
     }
 
-
-
-
-
 }

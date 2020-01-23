@@ -1,4 +1,6 @@
 import * as  request from 'request-promise';
+import { action } from '../procedure/login.procedure';
+import { ContextHelper } from './context.helper';
 export class WsHelper {
 
 
@@ -9,6 +11,7 @@ export class WsHelper {
 
 
     public static instance: WsHelper;
+    private contextHelper: ContextHelper;
 
     public static get() {
         if (!this.instance) {
@@ -18,17 +21,25 @@ export class WsHelper {
     }
 
     private constructor() {
-
+        this.contextHelper = ContextHelper.getInstance();
     }
 
 
 
-    public get(uri: string, token?: string) {
+    public get(uri: string, token?: string, name?:string) {
         const option: request.RequestPromiseOptions = {
             headers: this.createHeaders(token),
             json: true
         };
-        return request.get(uri, option);
+        return request.get(uri, option).then((response) => {
+            if(response.status === 1106 && name){
+                return this.regenToken(name).then(()=> {
+                    return request.get(uri, option);
+                });
+            }
+            console.log();
+            return response;
+        });
     }
     
     
@@ -42,6 +53,11 @@ export class WsHelper {
     }
 
 
+
+    private async regenToken(name:string){
+        const machine = this.contextHelper.getJson(name);
+        await action(machine);
+    }
 
 
 

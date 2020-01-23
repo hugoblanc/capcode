@@ -6,7 +6,6 @@ import { CapNodeProvider } from './models/capNodeProvider';
 import { login } from './procedure/login.procedure';
 import { ContextHelper } from './services/context.helper';
 import { TemplateHelper } from './services/template.helper';
-import { initMachine } from './procedure/initmachine.procedure';
 
 
 
@@ -57,7 +56,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
 async function initView() {
-	await initMachine();
 	const capNodeProvider = new CapNodeProvider();
 	vscode.window.createTreeView('server', { treeDataProvider: capNodeProvider });
 }
