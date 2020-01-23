@@ -2,7 +2,7 @@
 	"name": "capcode",
 	"displayName": "CapCode",
 	"description": "Capcode integrate caprover tools inside vscode",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"publisher": "MrWhite",
 	"repository": {
 		"url": "https://github.com/owner/project/issues",
@@ -68,7 +68,7 @@
 					"group": "inline",
 					"when": "view == server && viewItem == app"
 				}
-			], 
+			],
 			"view/title": [
 				{
 					"command": "extension.login",
