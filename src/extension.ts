@@ -16,22 +16,23 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	await initView();
 
-	let disposable = vscode.commands.registerCommand('extension.setpass', async (context) => {
+	const disposable = [];
+	disposable.push(vscode.commands.registerCommand('extension.setpass', async (context) => {
 		console.log(context);
-	});
+	}));
 
 
 
-	vscode.commands.registerCommand('extension.login', async (context) => {
+	disposable.push(vscode.commands.registerCommand('extension.login', async (context) => {
 		await login();
 		await initView();
-	});
+	}));
 
 
 
 	const templateHelper = TemplateHelper.getInstance();
 
-	vscode.commands.registerCommand('extension.showDetails', (node: CapNode) => {
+	disposable.push(vscode.commands.registerCommand('extension.showDetails', (node: CapNode) => {
 		// Create and show panel
 		const panel = vscode.window.createWebviewPanel(
 			'catCoding',
@@ -42,7 +43,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 		// And set its HTML content
 		panel.webview.html = templateHelper.getTemplateFromApp(node.metaData as AppDefinition);
-	});
+	}));
 
 
 
@@ -50,7 +51,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(...disposable);
 }
 
 
