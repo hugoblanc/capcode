@@ -38,7 +38,8 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 Users appreciate release notes as you update your extension.
 
-### 0.0.1
+
+### 0.3.3
 
 Initial revision
 
@@ -46,6 +47,12 @@ Initial revision
 - Save machine credentials
 - List machine's apps
 - See app's env
+
+### 0.3.4
+
+Initial revision
+
+- Logout from a machine
 
 -----------------------------------------------------------------------------------------------------------
 
