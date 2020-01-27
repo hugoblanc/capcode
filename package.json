@@ -15,18 +15,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld",
 		"onCommand:extension.login",
+		"onCommand:extension.logout",
 		"onView:capcode",
 		"onView:server"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			},
 			{
 				"command": "extension.setpass",
 				"title": "SetPassword",

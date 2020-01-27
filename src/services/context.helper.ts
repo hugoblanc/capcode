@@ -15,6 +15,12 @@ export class ContextHelper {
     private constructor(private context: vscode.ExtensionContext) {
     }
 
+    public async deleteObjectGlobally(arrayKey: string, objectKey: string){
+        let array = this.getJson(arrayKey, '[]') as string[];
+        array = array.filter((key) => key !== objectKey);
+        await this.setJson(arrayKey, array);
+        await this.set(objectKey, null);
+    }
 
     public getObjectsFromArrayKey(arrayKey: string){
         const array = this.getJson(arrayKey, '[]') as string[];
@@ -42,7 +48,7 @@ export class ContextHelper {
 
     }
 
-    public set(key: string, value: string) {
+    public set(key: string, value: any) {
         return this.context.globalState.update(key, value);
     }
 

@@ -29,6 +29,13 @@ export async function activate(context: vscode.ExtensionContext) {
 	}));
 
 
+	disposable.push(vscode.commands.registerCommand('extension.logout', async (context) => {
+		console.log(context);
+		
+		// contextHelper.deleteObjectGlobally()
+	}));
+
+
 
 	const templateHelper = TemplateHelper.getInstance();
 
@@ -40,7 +47,6 @@ export async function activate(context: vscode.ExtensionContext) {
 			vscode.ViewColumn.One,
 			{}
 		);
-
 		// And set its HTML content
 		panel.webview.html = templateHelper.getTemplateFromApp(node.metaData as AppDefinition);
 	}));
