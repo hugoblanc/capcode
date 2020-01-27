@@ -6,9 +6,7 @@ import { CapNode } from "./capNode";
 import { Machine } from './machine';
 
 export class CapNodeProvider implements TreeDataProvider<any> {
-
-	// capcliService: CaproverCliService;
-	// context: vscode.ExtensionContext;
+	
 	contextHelper: ContextHelper;
 
 	constructor() {
@@ -16,8 +14,8 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 		this.contextHelper = ContextHelper.getInstance();
 	}
 
-	public async getChildren(task?: CapNode): Promise<CapNode[]> {
-		let childrens: CapNode[] = [];
+	public async getChildren(task?: CapNode<Machine>): Promise<CapNode<AppDefinition | Machine>[]> {
+		let childrens = [];
 		if (task === undefined) {
 			childrens = await this.getMachine();
 		} else {
@@ -31,7 +29,7 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 
 		const machines = this.contextHelper.getObjectsFromArrayKey(ContextHelper.MACHINE_KEY_ARRAY) as Machine[];
 
-		const mNodes: CapNode[] = [];
+		const mNodes: CapNode<Machine>[] = [];
 		for (let m of machines) {
 			mNodes.push(new CapNode('server', m.name, TreeItemCollapsibleState.Collapsed, m));
 		}
@@ -39,7 +37,7 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 		return mNodes;
 	}
 
-	private async getServerChildren(mNode: CapNode) {
+	private async getServerChildren(mNode: CapNode<Machine>) {
 
 
 		const appsDefData = await initMachine(mNode.metaData as Machine);
@@ -48,7 +46,7 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 			throw new Error("Unable to get machine's app definitions");
 		}
 
-		const apps: CapNode[] = [];
+		const apps: CapNode<AppDefinition>[] = [];
 	
 
 		for (let a of appsDefData.appDefinitions) {
@@ -60,7 +58,7 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 	}
 
 
-	getTreeItem(task: CapNode): CapNode {
+	getTreeItem(task: CapNode<AppDefinition | Machine>): CapNode<AppDefinition | Machine> {
 		return task;
 	}
 }
