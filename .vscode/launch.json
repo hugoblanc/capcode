@@ -5,6 +5,7 @@
 {
 	"version": "0.2.0",
 	"configurations": [
+
 		{
 			"name": "Run Extension",
 			"type": "extensionHost",
@@ -14,7 +15,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
 			"outFiles": [
-				"${workspaceFolder}/out/**/*.js"
+				"${workspaceFolder}/dist/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
 		},
