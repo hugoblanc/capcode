@@ -14,7 +14,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	const contextHelper = ContextHelper.getInstance(context);
 
 
-	await initView();
+
 
 	const disposable = [];
 	disposable.push(vscode.commands.registerCommand('extension.setpass', async (context) => {
@@ -46,12 +46,10 @@ export async function activate(context: vscode.ExtensionContext) {
 	}));
 
 
-
-
-
-
-
 	context.subscriptions.push(...disposable);
+
+
+	await initView();
 }
 
 
