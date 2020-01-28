@@ -1,17 +1,12 @@
-import { WsHelper } from '../services/ws.helper';
-import { PopupHelper } from '../services/popup.helper';
 import { Machine } from '../models/machine';
+import { CaptainService } from '../services/captain.service';
 import { ContextHelper } from '../services/context.helper';
+import { PopupHelper } from '../services/popup.helper';
 
 const popupHelper = new PopupHelper();
 export async function login() {
-	const ws = WsHelper.get();
-	const contextHelper = ContextHelper.getInstance();
-
 	const params = await askParams();
-
 	await action(params);
-
 }
 
 
@@ -51,11 +46,11 @@ async function askParams() {
 
 
 export async function action({ host, password, name }: any) {
-	const ws = WsHelper.get();
+	const service = CaptainService.getInstance();
 	const contextHelper = ContextHelper.getInstance();
 	
 	try {
-		const result = await ws.post('https://captain.' + host + '/api/v2/login', { password: password });
+		const result = await service.login(host, password);
 		const token = result?.data?.token;
 		if (token) {
 			const loggedMachine = new Machine(name, host, password, token);

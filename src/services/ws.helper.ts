@@ -13,7 +13,7 @@ export class WsHelper {
     public static instance: WsHelper;
     private contextHelper: ContextHelper;
 
-    public static get() {
+    public static getInstance() {
         if (!this.instance) {
             this.instance = new WsHelper();
         }
@@ -26,23 +26,21 @@ export class WsHelper {
 
 
 
-    public get(uri: string, token?: string, name?:string) {
+    public async get(uri: string, token?: string, name?: string) {
         const option: request.RequestPromiseOptions = {
             headers: this.createHeaders(token),
             json: true
         };
-        return request.get(uri, option).then((response) => {
-            if(response.status === 1106 && name){
-                return this.regenToken(name).then(()=> {
-                    return request.get(uri, option);
-                });
-            }
-            console.log();
-            return response;
-        });
+        const response = await request.get(uri, option);
+        if (response.status === 1106 && name) {
+            await this.regenToken(name);
+            return request.get(uri, option);
+        }
+        console.log();
+        return response;
     }
-    
-    
+
+
     public post(uri: string, data: any, token?: string) {
         const option: request.RequestPromiseOptions = {
             headers: this.createHeaders(token),
@@ -54,7 +52,7 @@ export class WsHelper {
 
 
 
-    private async regenToken(name:string){
+    private async regenToken(name: string) {
         const machine = this.contextHelper.getJson(name);
         await action(machine);
     }
