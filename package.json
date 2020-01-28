@@ -39,6 +39,11 @@
 				"icon": "resources/logout.svg"
 			},
 			{
+				"command": "extension.appdata",
+				"title": "Show app data",
+				"icon": "resources/house.svg"
+			},
+			{
 				"command": "extension.showDetails",
 				"title": "SetPassword",
 				"icon": "resources/monitor.svg"
@@ -59,6 +64,11 @@
 					"command": "extension.logout",
 					"group": "inline",
 					"when": "view == server && viewItem == server"
+				},
+				{
+					"command": "extension.appdata",
+					"group": "inline",
+					"when": "view == server && viewItem == app"
 				},
 				{
 					"command": "extension.showDetails",
