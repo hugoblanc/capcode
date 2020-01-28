@@ -41,7 +41,7 @@ export class TemplateHelper {
 
 
 
-    getTemplateFromApp(app: AppDefinition): string {
+    getTemplateFromAppDefinition(app: AppDefinition): string {
         let body = '';
 
 
@@ -81,6 +81,58 @@ export class TemplateHelper {
 
 
 
+    getTemplateFromAppDatas(appDefinition: AppDefinition,  app: AppData): string {
+        let body = '';
+
+
+        if (appDefinition.description) {
+            body = this.titleDescriptionSection('Description', app.description);
+        }
+
+        body += this.boolSection(
+            'Data persitence',
+            app.hasPersistentData,
+            'The application has data persitence activated ',
+            `The application doesn't has data persitance activated`);
+
+        if (app.volumes && app.volumes.length > 0) {
+            body += this.generateTable(app.volumes);
+        }
+
+        body += this.boolSection(
+            'Application exposed',
+            app.notExposeAsWebApp,
+            'The application is not exposed',
+            `The application is exposed to internet`);
+
+        if (app.envVars && app.envVars.length > 0) {
+            body += this.titleDescriptionSection('Environnement variables');
+            body += this.generateTable(app.envVars);
+        }
+
+
+        const document = this.injectString(TemplateHelper.DETAILS, TemplateHelper.SKELETON, body);
+        const finalDocument = this.injectString(TemplateHelper.TITLE, document, app.appName);
+
+        return finalDocument;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     * *                                      GENERIC TEMPLATING METHODES
+     * *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
 
 
     /**
