@@ -25,12 +25,12 @@ export class CaptainService {
         return this.wsHelper.post('https://captain.' + host + '/api/v2/login', { password });
     }
 
-    getAppsDefinitions(machine: Machine) {
+    getAppsDefinitions(machine: Machine): Promise<AppDefinitionResponse> {
         return this.wsHelper.get('https://captain.' + machine.host + '/api/v2/user/apps/appDefinitions', machine.token, machine.name);
     }
 
-    getAppDatas(app: AppDefinition, machine: Machine) {
-        return this.wsHelper.get('https://captain.' + machine.host + '/api/v2/user/apps/appData' + app.appName, machine.token, machine.name);
+    getAppDatas(app: AppDefinition, machine: Machine): Promise<AppDataResponse> {
+        return this.wsHelper.get('https://captain.' + machine.host + '/api/v2/user/apps/appData/' + app.appName, machine.token, machine.name);
     }
 
 
