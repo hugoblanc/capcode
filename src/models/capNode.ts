@@ -4,25 +4,20 @@ import { Machine } from './machine';
 
 export class CapNode<T> extends TreeItem {
 
-
-    type: string;
-    label: string;
-    iconPath: string;
+    // iconPath: string;
     contextValue: string;
-    metaData: T;
+
 
     constructor(
-        type: string,
-        label: string,
-        collapsibleState: TreeItemCollapsibleState,
-        metaData:T
+        public type: string,
+        public label: string,
+        public collapsibleState: TreeItemCollapsibleState,
+        public metaData:T,
+        public parent?: CapNode<Machine>
     ) {
         super(label, collapsibleState);
-        this.label = label;
-        this.type = type;
-        this.iconPath = path.join(__filename, '..', '..', '..', 'resources', 'lock.png');
+        // this.iconPath = path.join(__filename, '..', '..', '..', 'resources', 'lock.png');
         this.contextValue = type;
-        this.metaData = metaData;
     }
 
 }

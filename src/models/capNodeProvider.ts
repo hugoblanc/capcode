@@ -10,11 +10,10 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 	contextHelper: ContextHelper;
 
 	constructor() {
-
 		this.contextHelper = ContextHelper.getInstance();
 	}
 
-	public async getChildren(task?: CapNode<Machine>): Promise<CapNode<AppDefinition | Machine>[]> {
+	async getChildren(task?: CapNode<Machine>): Promise<CapNode<AppDefinition | Machine>[]> {
 		let childrens = [];
 		if (task === undefined) {
 			childrens = await this.getMachine();
@@ -41,18 +40,14 @@ export class CapNodeProvider implements TreeDataProvider<any> {
 
 
 		const appsDefData = await initMachine(mNode.metaData as Machine);
-
 		if(!appsDefData){
 			throw new Error("Unable to get machine's app definitions");
 		}
 
 		const apps: CapNode<AppDefinition>[] = [];
-	
-
 		for (let a of appsDefData.appDefinitions) {
-			apps.push(new CapNode('app', a.appName, TreeItemCollapsibleState.None, a));
+			apps.push(new CapNode('app', a.appName, TreeItemCollapsibleState.None, a, mNode));
 		}
-
 
 		return apps;
 	}

@@ -5,6 +5,7 @@ import { login } from './procedure/login.procedure';
 import { ContextHelper } from './services/context.helper';
 import { TemplateHelper } from './services/template.helper';
 import { Machine } from './models/machine';
+import { appData } from './procedure/appdata.procedure';
 
 
 
@@ -32,6 +33,16 @@ export async function activate(context: vscode.ExtensionContext) {
 		await contextHelper.deleteObjectGlobally(ContextHelper.MACHINE_KEY_ARRAY, context.metaData.name);
 		await initView();
 	}));
+
+
+	disposable.push(vscode.commands.registerCommand('extension.appdata', async (context: CapNode<AppDefinition>) => {
+		if (!context.parent) {
+			throw new Error('No server related to that app');
+		}
+		await appData(context.metaData, context.parent.metaData);
+		await initView();
+	}));
+
 
 
 
